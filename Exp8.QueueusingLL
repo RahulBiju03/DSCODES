@@ -1,0 +1,97 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node*link;
+}
+*front=NULL,*rear,*temp,*p;
+void enqueue(int);
+void dequeue();
+void display();
+void main()
+{
+    int n,item;
+    while(n!=4)
+    {
+        printf("Enter your choice:\n1.ENQUEUE\n2.DEQUEUE\n3.DISPLAY\n4.EXIT\n");
+        scanf("%d",&n);
+        switch(n)
+        {
+            case 1:
+            printf("Enter the data\n");
+            scanf("%d",&item);
+            enqueue(item);
+            break;
+         case 2:
+            dequeue();
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            exit(0);
+            default:printf("invalid choice");
+        }
+    }
+}
+void enqueue(int item)
+{
+    temp=(struct node*)malloc(sizeof(struct node));
+    if(front==NULL)
+    {
+        front=temp;
+        temp->link=NULL;
+        temp->data=item;
+    }
+    else
+    {
+        rear=front;
+        while(rear->link!=0)
+        {
+            rear=rear->link;
+        }
+        rear->link=temp;
+        temp->link=NULL;
+        temp->data=item;
+    }
+}
+void dequeue()
+{
+    if(front==NULL)
+    {
+        printf("Dequeue not possible");
+    }
+    else
+    {
+        temp=front;
+        if(front->link==NULL)
+        {
+            front=NULL;
+        }
+        else
+        {
+            front=front->link;
+        }
+        printf("deleted element is %d",temp->data);
+        free(temp);
+    }
+}
+void display()
+{
+if(front==NULL)
+{
+    printf("Queue is empty\n");
+}
+else
+{
+    p=front;
+    printf("elements are\n");
+    while(p!=NULL)
+    {
+        printf("%d\n",p->data);
+        p=p->link;
+    }
+}
+}
+
